@@ -1,20 +1,19 @@
-# PReSto BayGMST run, 2026-10-08b pool (screened)
+# PReSto BayGMST run on PReSto2k 0_0_1
 
-This repository runs the PReSto BayGMST reconstruction on a pinned LiPDverse data
-pool. Everything that defines the run is committed here:
+This repository runs the PReSto BayGMST reconstruction on the [PReSto2k 0_0_1](https://lipdverse.org/PReSto2k/0_0_1/) compilation, screened against local HadCRUT5 temperature (presto-recipes [`PReSto2k_0_0_1_localfdr10`](https://github.com/paleopresto/presto-recipes/blob/pools-2026-10-15b-r1/pools/config/PReSto2k_0_0_1_localfdr10.yml): temperature-interpreted records with a local correlation of the expected sign, BH FDR < 0.10 over 1850-2000, lag-1 autocorrelation at most 0.98): 230 records.
 
-- `query_params.json` (`mode: bundle`): the pool bundle's URL and sha256,
-  and its TSids. Pool `cfr_annual_localfdr10`: the PReSto2k pool (`cfr_annual`, also
-  used by the LMR) screened against local HadCRUT5 temperature (interpreted records
-  only; expected sign from the temperature interpretation, either sign when it gives
-  none; AR(1)-adjusted p, 10% false-discovery rate, 1850-2000), without series whose
-  lag-1 autocorrelation exceeds 0.98. Pool, criteria, screen and deduplication:
-  [paleopresto/presto-recipes](https://github.com/paleopresto/presto-recipes/tree/pools/pools),
-  release [pools-2026-10-08b-r9](https://github.com/paleopresto/presto-recipes/releases/tag/pools-2026-10-08b-r9).
-  The previous run used `pages2k2017_localfdr10` (PAGES 2k 2017, release r3).
-- The algorithm's config, from presto-recipes `runs/presto-BayGMST/2026-10-08b/`
-  (or the template default where that directory has none).
-- The workflow and container code, from the template's `pool-bundles` branch
-  until that is merged upstream.
+- Membership comes only from the published compilation, read from the
+  LiPDverse whole-database export
+  [2026-10-15b](https://lipdverse.org/dev/export/database-2026-10-15b/)
+  (`compilations` table) by presto-recipes `pools/compilation_pool.R`.
+- `query_params.json` (`mode: bundle`) pins the bundle by URL and sha256:
+  presto-recipes release
+  [pools-2026-10-15b-r1](https://github.com/paleopresto/presto-recipes/releases/tag/pools-2026-10-15b-r1).
+  Its files are the compilation's LiPD files, checked against the export's
+  md5 values and trimmed to the member records.
+- The code and algorithm config are those of
+  [presto-BayGMST-run-2026-10-08b](https://github.com/paleopresto/presto-BayGMST-run-2026-10-08b),
+  unchanged, so this run differs from that one only in where its data come
+  from.
 
 Committing `query_params.json` triggers the reconstruction workflow.
